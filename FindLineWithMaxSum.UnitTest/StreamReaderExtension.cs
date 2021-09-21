@@ -53,5 +53,26 @@ namespace FindLineWithMaxSum.UnitTest
                 }
             }
         }
+
+        [Fact]
+        public void Test_EmptyFile()
+        {
+            // Arrange
+            StringBuilder test = new StringBuilder();
+
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(test.ToString())))
+            {
+                using (StreamReader streamReader = new StreamReader(memoryStream))
+                {
+                    // Act
+                    (Int32 lineWithMaxSumOfNumbers, Int32[] linesWithWrongFormat) actual = streamReader.GetLineWithMaxSumOfNumbers();
+
+                    // Assert
+                    (Int32 lineWithMaxSumOfNumbers, Int32[] linesWithWrongFormat) expected = (lineWithMaxSumOfNumbers: 0, linesWithWrongFormat: new int[0]);
+                    Assert.Equal(expected.linesWithWrongFormat, actual.linesWithWrongFormat);
+                    Assert.Equal(expected.lineWithMaxSumOfNumbers, actual.lineWithMaxSumOfNumbers);
+                }
+            }
+        }
     }
 }
